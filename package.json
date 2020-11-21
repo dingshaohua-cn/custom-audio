@@ -5,7 +5,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lib":"vue-cli-service build --target lib --name custom-audio --dest lib"
+    "lib":"vue-cli-service build --target lib --name custom-audio --dest lib src/index.ts"
   },
   "dependencies": {
     "core-js": "^3.6.5",
