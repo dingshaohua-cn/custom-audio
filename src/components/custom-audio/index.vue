@@ -1,7 +1,6 @@
 <template>
   <div class="custom-audio">
     <audio
-      controls
       :src="params.url"
       ref="firsthandAudio"
       @canplay="audioCanplay"
@@ -23,8 +22,9 @@
               :key="index"
               :style="{
                 backgroundColor: item.color,
-                width: computeDurationWidth(item.duration) + 'px',
-              }">
+                width: item.duration===-1?'100%':computeDurationWidth(item.duration) + '%',
+              }"
+            >
               <div class="progress-label">{{ item.label }}</div>
             </div>
           </div>
@@ -53,7 +53,21 @@ import { transTime, getComputedStyle } from "./helper";
 import "./style.less";
 @Component
 export default class CustomAudio extends Vue {
-  @Prop()
+  @Prop({
+    type: Object,
+    default(): CustomAudioParams {
+      return {
+        url: "",
+        keyframes: [
+          {
+            duration: -1,
+            color: "black",
+            label: "",
+          }
+        ]
+      }
+    }
+  })
   private params!: CustomAudioParams;
 
   // 音频文件总时长
@@ -165,15 +179,15 @@ export default class CustomAudio extends Vue {
     const playControl = this.$refs.playControl as HTMLDivElement;
     const playBar = this.$refs.playBar as HTMLDivElement;
     const playTools = this.$refs.playTools as HTMLDivElement;
-    const playBarWidth =
-      playControls.clientWidth -
-      playControl.clientWidth -
-      playTools.clientWidth;
-    playBar.style.width = playBarWidth + "px";
-    this.playBarWidth = playBarWidth;
+    if (playControls && playControl && playBar && playTools) {
+      const playBarWidth =
+        playControls.clientWidth -
+        playControl.clientWidth -
+        playTools.clientWidth;
+      playBar.style.width = playBarWidth + "px";
+      this.playBarWidth = playBarWidth;
+    }
   }
-
-  private sum = 0;
 
   /*
    * @description 计算每个关键段的长度
@@ -181,8 +195,8 @@ export default class CustomAudio extends Vue {
    * @return
    */
   private computeDurationWidth(duration: number) {
-    if(this.audioDuration>0){
-      const result = (duration / (this.audioDuration * 1000)) * this.playBarWidth;
+    if (this.audioDuration > 0) {
+      const result = (duration / (this.audioDuration * 1000)) * 100;
       return result;
     }
   }
@@ -223,7 +237,7 @@ export default class CustomAudio extends Vue {
 
   private mounted() {
     this.computePlayBarWidth();
-    document.addEventListener("resize", this.computePlayBarWidth);
+    window.addEventListener("resize", this.computePlayBarWidth);
     document.addEventListener("mousemove", this.pointMousemove);
     document.addEventListener("mouseup", this.ponintMouseup);
   }
