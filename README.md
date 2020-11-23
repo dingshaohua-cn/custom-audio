@@ -20,7 +20,7 @@ import { Component, Vue } from "vue-property-decorator";
 
 @Component
 export default class App extends Vue {
-  private customParams: any = {
+  private customParams = {
     url: "https://dshvv.oss-cn-beijing.aliyuncs.com/speak.wav",
     keyframes: [
       {
