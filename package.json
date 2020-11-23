@@ -1,6 +1,6 @@
 {
   "name": "custom-audio",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "main": "lib/custom-audio.umd.js",
   "scripts": {
     "serve": "vue-cli-service serve",

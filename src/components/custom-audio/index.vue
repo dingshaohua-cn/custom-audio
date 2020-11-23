@@ -31,20 +31,40 @@
               <div class="progress-label">{{ item.label }}</div>
             </div>
           </div>
-          <div class="play-point-bar" :style="{width:playedPostion + 'px'}"/>
+          <div class="play-point-bar"
+               :style="{width : playedPostion + 'px'}"/>
           <div class="play-point"
                ref="playPoint"
                @mousedown="pointMousedown"
-               :style="{ left : playedPostion + 'px' }"
+               v-if="params.pointImg.indexOf('#') > - 1"
+               :style="{ left : playedPostion + 'px', backgroundColor : params.pointImg}"
           />
+          <div class="play-point"
+               ref="playPoint"
+               @mousedown="pointMousedown" v-else
+               :style="{ left : playedPostion + 'px'}">
+            <img :src="params.pointImg">
+          </div>
         </div>
       </div>
       <!-- 播放器工具 -->
       <div class="play-tools"
            ref="playTools">
         <div class="audio-time">{{ audioTime }}</div>
-        <img :src="require('@/assets/down.png')"/>
-        <img :src="require('@/assets/sound.png')"/>
+        <div class="audio-muted"
+             v-if="params.mutedTool"
+             @click="audioMuted">
+          <img :src="require('@/assets/no-sound.png')"
+               v-if="audioMutedStatus"/>
+          <img :src="require('@/assets/sound.png')" v-else/>
+        </div>
+        <img :src="require('@/assets/restart.png')"
+             v-if="params.restartTool"
+             @click="audioRestart"/>
+        <a :href="params.url + '?response-content-type=application/octet-stream'" download
+           v-if="params.downTool">
+          <img :src="require('@/assets/down.png')"/>
+        </a>
       </div>
     </div>
   </div>
@@ -56,24 +76,25 @@
   import './style.less';
   import {CustomAudioParams} from './type';
 
+  const defaultConfig: any = {
+    url: '',
+    pointImg: '#649fec',
+    mutedTool: true,
+    restartTool: true,
+    downTool: true,
+    keyframes: [
+      {
+        duration: -1,
+        color: '#c1c2c3',
+        label: ''
+      }
+    ]
+  };
+
   @Component
   export default class CustomAudio extends Vue {
-    @Prop({
-      type: Object,
-      default(): CustomAudioParams {
-        return {
-          url: '',
-          keyframes: [
-            {
-              duration: -1,
-              color: 'black',
-              label: ''
-            }
-          ]
-        };
-      }
-    })
-    private params!: CustomAudioParams;
+    @Prop()
+    private config: CustomAudioParams|any;
 
     // 音频文件总时长
     private audioDuration: number = 0;
@@ -83,6 +104,9 @@
 
     // 音频文件播放时常
     private audioCurrentTime = 0;
+
+    // 静音
+    private audioMutedStatus = false;
 
     // 播放条宽度
     private playBarWidth = 0;
@@ -130,6 +154,28 @@
       this.audioCurrentTime = firsthandAudio.currentTime;
     }
 
+    /**
+     * 静音
+     */
+    private audioMuted() {
+      this.audioMutedStatus = !this.audioMutedStatus;
+      const firsthandAudio = this.$refs.firsthandAudio as HTMLAudioElement;
+      firsthandAudio.muted = this.audioMutedStatus;
+
+    }
+
+    /**
+     * 用于xxx
+     * @param {string} uid - 用户id
+     * @return {User}一个用户
+     */
+    private audioRestart() {
+      const firsthandAudio = this.$refs.firsthandAudio as HTMLAudioElement;
+      firsthandAudio.pause();
+      firsthandAudio.currentTime = 0.0;
+      this.audioStatus = 'pause';
+    }
+
     /*
      * @description 模拟播放按钮的点击
      * @param
@@ -154,10 +200,12 @@
      * @return 音频组件按钮图片
      */
     private get audioSrc() {
+      const playImg = this.params.playImg ? this.params.playImg : require('@/assets/play.png');
+      const pauseImg = this.params.pauseImg ? this.params.pauseImg : require('@/assets/pause.png');
       const result =
           this.audioStatus === 'pause'
-              ? require('@/assets/play.png')
-              : require('@/assets/pause.png');
+              ? playImg
+              : pauseImg;
       return result;
     }
 
@@ -234,6 +282,15 @@
         firsthandAudio.currentTime =
             (nl / this.playBarWidth) * this.audioDuration;
       }
+    }
+
+    private get params(): CustomAudioParams {
+      for (const k in this.config){
+        if(this.config[k]){
+          defaultConfig[k] = this.config[k]
+        }
+      }
+      return defaultConfig;
     }
 
     private ponintMouseup() {

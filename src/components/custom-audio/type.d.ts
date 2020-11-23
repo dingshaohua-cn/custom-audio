@@ -8,6 +8,21 @@ interface keyframe{
 }
 
 export interface CustomAudioParams{
+    // 音频地址
     url: string;
+    // 播放图标自定义
+    playImg?:string;
+    // 暂停图标自定义
+    pauseImg?:string;
+    // 进度圆球的样式
+    pointImg?:string;
+    // 是否开启静音工具
+    mutedTool?: boolean;
+    // 是否开启重置功能
+    restartTool?: boolean;
+    // 是否开启下载功能
+    downTool?: boolean;
+    // 关键帧
     keyframes?:Array<keyframe>;
+
 }
