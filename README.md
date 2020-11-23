@@ -11,7 +11,7 @@ Vue.use(CustomAudio);
 ```vue
 <template>
   <div id="app">
-    <CustomAudio :params="customParams" />
+    <CustomAudio :config="customParams" />
   </div>
 </template>
 
