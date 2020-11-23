@@ -6,6 +6,7 @@ npm install custom-audio
 ```
 ```javascript
 import CustomAudio from 'custom-audio';
+import 'custom-audio/lib/custom-audio.css'
 Vue.use(CustomAudio);
 ```
 ```vue
