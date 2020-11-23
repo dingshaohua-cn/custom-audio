@@ -56,7 +56,8 @@
              @click="audioMuted">
           <img :src="require('@/assets/no-sound.png')"
                v-show="audioMutedStatus"/>
-          <img :src="require('@/assets/sound.png')" v-show="!audioMutedStatus"/>
+          <img :src="require('@/assets/sound.png')"
+               v-show="!audioMutedStatus"/>
         </div>
         <img :src="require('@/assets/restart.png')"
              v-show="params.restartTool"
@@ -73,8 +74,8 @@
 <script lang="ts">
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import {transTime} from './helper';
-  import {CustomAudioParams} from './type';
   import './style.less';
+  import {CustomAudioParams} from './type';
 
   const defaultConfig: any = {
     url: '',
@@ -94,7 +95,7 @@
   @Component
   export default class CustomAudio extends Vue {
     @Prop()
-    private config: CustomAudioParams|any;
+    private config: CustomAudioParams | any;
 
     // 音频文件总时长
     private audioDuration: number = 0;
@@ -285,9 +286,9 @@
     }
 
     private get params(): CustomAudioParams {
-      for (const k in this.config){
-        if(this.config[k]){
-          defaultConfig[k] = this.config[k]
+      for (const k in this.config) {
+        if (this.config[k]) {
+          defaultConfig[k] = this.config[k];
         }
       }
       return defaultConfig;

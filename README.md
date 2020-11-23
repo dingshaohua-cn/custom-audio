@@ -55,9 +55,9 @@ export default class App extends Vue {
 interface keyframe{
     // 此段的时长 毫秒
     duration: number;
-    // 关键点名字
+    // 关键段颜色标识
     color: string;
-    // 关键点位置
+    // 关键点名字
     label: string;
 }
 
