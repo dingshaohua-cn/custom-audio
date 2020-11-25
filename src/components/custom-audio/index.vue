@@ -68,7 +68,8 @@
         </a>
       </div>
     </div>
-    <div class="play-labels" v-if="this.config.showLabel">
+    <div class="play-labels"
+         v-if="params.showLabel">
       <div class="play-label"
            v-for="(item, index) in params.keyframes"
            :key="index">

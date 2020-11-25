@@ -1,6 +1,6 @@
 {
-  "name": "custom-audio",
-  "version": "0.2.4",
+  "name": "@aegis_dev/custom-audio",
+  "version": "0.2.5",
   "main": "lib/custom-audio.umd.js",
   "private":false,
   "scripts": {
