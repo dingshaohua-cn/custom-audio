@@ -12,7 +12,9 @@ Vue.use(CustomAudio);
 ```vue
 <template>
   <div id="app">
-    <CustomAudio :config="customParams" />
+     <CustomAudio :config="customParams"
+                     @audioCanplay="audioCanplay"
+                     @audioTimeUpdate="audioTimeUpdate"/>
   </div>
 </template>
 
@@ -46,6 +48,14 @@ export default class App extends Vue {
       },
     ],
   };
+  
+  private audioCanplay(e: any){
+    console.log('音频已准备好，可以播放了',e);
+  }
+    
+  private audioTimeUpdate(e: any){
+    console.log('音频当前播放进度更新',e);
+  }
 }
 </script>
 
@@ -79,6 +89,10 @@ export interface CustomAudioParams{
     // 关键帧
     keyframes?:Array<keyframe>;
 }
+```
+
+```javascript
+audioCanplay、audioTimeUpdate原生节点的回调
 ```
 预览   
 ![image](https://github.com/dshvv/custom-audio/blob/master/screenshots/1.jpg)

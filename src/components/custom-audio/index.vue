@@ -129,6 +129,7 @@
       const firsthandAudio: HTMLAudioElement = e.target;
       // 同步音频文件总时长实力属性
       this.audioDuration = firsthandAudio.duration;
+      this.$emit('audioCanplay',e);
       this.$nextTick(() => {
         this.computePlayBarWidth();
       });
@@ -153,6 +154,7 @@
       const firsthandAudio: HTMLAudioElement = e.target;
       // 同步音频文件总时长实力属性
       this.audioCurrentTime = firsthandAudio.currentTime;
+      this.$emit('audioTimeUpdate',e);
     }
 
     /**
