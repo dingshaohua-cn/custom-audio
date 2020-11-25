@@ -28,7 +28,7 @@
                 width : item.duration === - 1 ? '100%' : computeDurationWidth(item.duration) + '%',
               }"
             >
-              <div class="progress-label">{{ item.label }}</div>
+              <!--              <div class="progress-label">{{ item.label }}</div>-->
             </div>
           </div>
           <div class="play-point-bar"
@@ -68,6 +68,15 @@
         </a>
       </div>
     </div>
+    <div class="play-labels" v-if="this.config.showLabel">
+      <div class="play-label"
+           v-for="(item, index) in params.keyframes"
+           :key="index">
+        <div :style="{backgroundColor : item.color}"
+             class="bg"/>
+        <span>{{ item.label }}</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,6 +92,7 @@
     mutedTool: true,
     restartTool: true,
     downTool: true,
+    showLabel: true,
     keyframes: [
       {
         duration: -1,
@@ -129,7 +139,21 @@
       const firsthandAudio: HTMLAudioElement = e.target;
       // 同步音频文件总时长实力属性
       this.audioDuration = firsthandAudio.duration;
-      this.$emit('audioCanplay',e);
+      this.$emit('audioCanplay', e);
+
+      // 如果关键帧时间段的内加大于总时长，那么当前段要截掉
+      let sum = 0;
+      const audioDurationMs = this.audioDuration * 1000 || 0;
+      const keyframes = this.params.keyframes as Array<any>;
+      for (let i = 0; i < keyframes.length; i++) {
+        sum = keyframes[i].duration + sum;
+        if (sum > audioDurationMs) {
+          keyframes[i].duration = keyframes[i].duration - (sum - audioDurationMs);
+          this.params.keyframes = keyframes.slice(0, i + 1) as any;
+          return false;
+        }
+      }
+
       this.$nextTick(() => {
         this.computePlayBarWidth();
       });
@@ -154,7 +178,7 @@
       const firsthandAudio: HTMLAudioElement = e.target;
       // 同步音频文件总时长实力属性
       this.audioCurrentTime = firsthandAudio.currentTime;
-      this.$emit('audioTimeUpdate',e);
+      this.$emit('audioTimeUpdate', e);
     }
 
     /**
@@ -288,6 +312,7 @@
     }
 
     private get params(): CustomAudioParams {
+
       for (const k in this.config) {
         if (this.config[k]) {
           defaultConfig[k] = this.config[k];

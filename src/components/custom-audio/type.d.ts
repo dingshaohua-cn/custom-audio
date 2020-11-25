@@ -24,5 +24,7 @@ export interface CustomAudioParams{
     downTool?: boolean;
     // 关键帧
     keyframes?:Array<keyframe>;
+    // 是否开启label显示，默认true
+    showLabel?:boolean;
 
 }
