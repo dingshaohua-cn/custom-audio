@@ -8,14 +8,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import CustomAudio from '@/components/custom-audio/index.vue';
-import { CustomAudioParams } from '@/components/custom-audio/type';
 
-@Component({
-  components: {
-    CustomAudio
-  }
-})
+
+@Component
 export default class App extends Vue {
   private customParams: CustomAudioParams = {
     url: 'https://dshvv.oss-cn-beijing.aliyuncs.com/speak.wav',

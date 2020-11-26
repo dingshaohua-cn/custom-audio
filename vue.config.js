@@ -8,5 +8,8 @@ module.exports = {
           options.limit = 1024*1024
           return options;
         });
+  },
+  css: {
+    extract: false // 绑定css样式
   }
 };

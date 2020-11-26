@@ -85,7 +85,6 @@
   import {Component, Prop, Vue} from 'vue-property-decorator';
   import {transTime} from './helper';
   import './style.less';
-  import {CustomAudioParams} from './type';
 
   const defaultConfig: any = {
     url: '',

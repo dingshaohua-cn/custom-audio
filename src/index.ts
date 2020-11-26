@@ -1,15 +1,22 @@
-import customAudio from '@/components/custom-audio/index.vue'; //引入组件
+import CustomAudio from '@/components/custom-audio/index.vue'; //引入组件
 
-const main = {
-  install(Vue: any, options: any) {
-    console.log(customAudio.name+'已装载');
-    Vue.component(customAudio.name, customAudio); //注册全局
+// 定义install方法
+const install:any = (Vue: any) => {
+  if (install.installed) {
+    return false;
   }
+  // 遍历并注册组件
+  Vue.component('CustomAudio', CustomAudio);
 };
-
-// 这里的判断很重要
 if (typeof window !== 'undefined' && window.Vue) {
-  window.Vue.use(main);
+  install(window.Vue);
 }
 
-export default main;
+// @ts-ignore
+CustomAudio.install = install;
+
+export default CustomAudio;
+
+export interface teachre {
+  a: string
+}

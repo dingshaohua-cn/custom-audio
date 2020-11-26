@@ -1,4 +1,4 @@
-interface keyframe{
+declare interface keyframe{
     // 此段的时长 毫秒
     duration: number;
     // 关键点名字
@@ -7,7 +7,7 @@ interface keyframe{
     label: string;
 }
 
-export interface CustomAudioParams{
+declare interface CustomAudioParams{
     // 音频地址
     url: string;
     // 播放图标自定义
