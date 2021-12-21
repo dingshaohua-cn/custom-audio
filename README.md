@@ -38,5 +38,5 @@ createApp(App).use(CustomAudio).mount('#app');
 
 ## Preview
 
-https://dshvv.github.io/custom-audio/  
+https://dshvv.github.io/custom-audio/
 ![preview](https://github.com/dshvv/custom-audio/blob/main/preview.gif)
