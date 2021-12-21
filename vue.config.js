@@ -1,5 +1,5 @@
 module.exports = {
-  publicPath: '/docs/',
+  publicPath: '/custom-audio/',
   // 修改 src 目录 为 examples 目录
   pages: {
     index: {
