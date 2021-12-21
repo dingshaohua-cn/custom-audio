@@ -1,6 +1,7 @@
 # custom-audio
 
-Only vue3 is supported
+Only vue3 is supported   
+Support for mobile platform
 
 ## Install
 
@@ -39,5 +40,3 @@ createApp(App).use(CustomAudio).mount('#app');
 
 https://dshvv.github.io/custom-audio/  
 ![preview](https://github.com/dshvv/custom-audio/blob/main/preview.gif)
-
-<iframe  height=300 width=600 src="https://dshvv.github.io/custom-audio/" frameborder=0  allowfullscreen></iframe>

@@ -9,5 +9,6 @@ module.exports = {
         // 在 dist/index.html 的输出
         filename: 'index.html'
       }
-    }
+    },
+    css: { extract: false }
   }
