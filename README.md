@@ -1,4 +1,5 @@
 # custom-audio
+
 Only vue3 is supported
 
 ## Install
@@ -28,12 +29,15 @@ createApp(App).use(CustomAudio).mount('#app');
 ```
 
 ## Options
-  Option   | Description  |
-|  ----  | ----  |
-| src  | Playback address |
-| downBlob  | use a download attribute/use fetch(html5 api) methods  |
 
+| Option   | Description                                           |
+| -------- | ----------------------------------------------------- |
+| src      | Playback address                                      |
+| downBlob | use a download attribute/use fetch(html5 api) methods |
 
 ## Preview
-https://dshvv.github.io/custom-audio/   
+
+https://dshvv.github.io/custom-audio/  
 ![preview](https://github.com/dshvv/custom-audio/blob/main/preview.gif)
+
+<iframe  height=300 width=600 src="https://dshvv.github.io/custom-audio/" frameborder=0  allowfullscreen></iframe>
