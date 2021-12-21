@@ -1,0 +1,61 @@
+.custom-audio {
+    min-width: 300px;
+    display: flex;
+    align-items: center;
+    background-color: #f1f3f4;
+    height: 40px;
+    padding: 0 10px;
+    .tools{
+        user-select: none;
+        display: flex;
+        align-items: center;
+        font-size: 16px;
+        *{
+            cursor: pointer;
+        }
+    }
+    
+    .left-tools {
+        .tools;
+        .time-status{
+            font-size: 14px;
+        }
+        *{
+            margin-left: 6px;
+        }
+    }
+    .center-bar {
+        border-radius: 20px;
+        flex: 1;
+        margin: 0 10px;
+        background-color: #c1c2c3;
+        height: 4px;
+        position: relative;
+        .center-bar-active {
+            border-radius: 20px;
+            position: absolute;
+            top: 0;
+            background-color: black;
+            height: 4px;
+        }
+        .play-point{
+            position: absolute;
+            top: -4px;
+            background-color: black;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 2;
+        }
+    }
+    .right-tools{
+        .tools;
+        justify-content: flex-end;
+        *{
+            margin-right: 6px;
+            
+        }
+       
+    }
+}
